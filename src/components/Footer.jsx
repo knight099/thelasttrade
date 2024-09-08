@@ -10,7 +10,7 @@ export function Footer() {
 
         {/* Social Media Links */}
         <div className="flex space-x-6">
-          <a
+          {/* <a
             href="https://www.twitter.com/thelasttrade"
             target="_blank"
             rel="noopener noreferrer"
@@ -18,9 +18,9 @@ export function Footer() {
             className="hover:text-gray-400 transition"
           >
             <FaTwitter size={24} />
-          </a>
+          </a> */}
           <a
-            href="https://www.instagram.com/thelasttrade"
+            href="https://www.instagram.com/tthelasttrade"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Instagram"
@@ -29,7 +29,7 @@ export function Footer() {
             <FaInstagram size={24} />
           </a>
           <a
-            href="https://www.youtube.com/@thelasttrade"
+            href="https://www.youtube.com/@tthelasttrade"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="YouTube"

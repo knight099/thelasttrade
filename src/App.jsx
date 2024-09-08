@@ -11,7 +11,8 @@ import { Homepage } from "./pages/Homepage";
 function App() {
   return (
     <>
-      <BrowserRouter>
+      
+      {/* <BrowserRouter> */}
         <Routes>
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
@@ -20,7 +21,8 @@ function App() {
           {/* <Route path="/admindashboard" element={<AdminDashboard />} /> */}
           <Route path="/courses" element={<Courses />} />
         </Routes>
-      </BrowserRouter>
+        
+      {/* </BrowserRouter> */}
     </>
   );
 }
