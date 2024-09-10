@@ -4,8 +4,10 @@ import { Appbar } from "../components/Appbar";
 import { Footer } from "../components/Footer";
 import { Slider } from "../components/Slider";
 import { Heading } from "../components/Heading";
-import { PricingCard } from "../components/PricingCard"; // Import the PricingCard component
+import { PricingCard } from "../components/PricingCard";
+import { ContactUs } from "../components/ContactUs";
 import { useNavigate } from "react-router-dom";
+import backgroundImage from "../assets/background2.jpg";
 
 export const Pricing = () => {
     const navigate = useNavigate();
@@ -53,7 +55,10 @@ export const Pricing = () => {
       <Slider />
 
       {/* Pricing Section */}
-      <section className="bg-gray-100 py-12">
+      <section
+        className="bg-black-100 py-12"
+        style={{ backgroundImage: `url(${backgroundImage})` }}
+      >
         <div className="container mx-auto px-4">
           <Heading
             title="Our Pricing Plans"
@@ -67,13 +72,13 @@ export const Pricing = () => {
                 price={course.price}
                 features={course.features}
                 buttonLabel={course.buttonLabel}
-                onClick={()=> navigate("/checkout")}
+                onClick={(course) => navigate("/checkout")}
               />
             ))}
           </div>
         </div>
       </section>
-
+        <ContactUs />
       <Footer />
     </>
   );

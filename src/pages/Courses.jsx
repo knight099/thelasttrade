@@ -115,7 +115,7 @@ export function Courses() {
         className="relative min-h-screen bg-cover bg-center"
         style={{ backgroundImage: `url(${backgroundImage})` }}
       >
-        <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+        <div className="absolute inset-0 bg-grey bg-opacity-60"></div>
         <div className="relative container mx-auto py-10 px-4 z-10">
           <Heading
             level={2}

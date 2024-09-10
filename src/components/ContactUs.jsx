@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { Button } from "./Button"; // Adjust the import path based on your project structure
+import backgroundImage from "../assets/background2.jpg";
 
 export function ContactUs() {
   const [formData, setFormData] = useState({
@@ -37,7 +38,10 @@ export function ContactUs() {
 
   return (
     <section className="py-12 bg-gray-800 text-white">
-      <div className="container mx-auto text-center">
+      <div
+        className="container mx-auto text-center"
+        style={{ backgroundImage: `url(${backgroundImage})` }}
+      >
         <h2 className="text-3xl font-extrabold mb-8">Contact Us</h2>
         <form
           className="max-w-xl mx-auto space-y-4"

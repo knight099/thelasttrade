@@ -83,10 +83,10 @@ export const Appbar = () => {
         <div
           className={`${
             isMenuOpen ? "block" : "hidden"
-          } fixed top-16 left-0 w-full md:static md:flex md:w-auto md:space-x-8 md:mt-0 md:bg-black md:dark:bg-gray-900 md:border-0`}
+          } fixed top-16 left-0 w-full md:static md:flex md:w-auto md:space-x-8 md:mt-0 md:bg-grey md:dark:bg-gray-900 md:border-0`}
           id="navbar_dropdown"
         >
-          <ul className="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:dark:bg-black">
+          <ul className="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:dark:bg-grey">
             {/* Home */}
             <li>
               <a

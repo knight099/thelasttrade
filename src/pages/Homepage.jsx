@@ -174,13 +174,16 @@ export function Homepage() {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div className="relative bg-white/70 backdrop-blur-md p-8 rounded-lg container mx-auto text-center">
+        <div className="relative bg-white/30 backdrop-blur-md p-8 rounded-lg container mx-auto text-center">
           <h2 className="text-3xl font-extrabold text-gray-800 mb-8">
             What Services We Offer
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+          <div className="grid justify-items-center">
             {/* Service Card */}
-            <div className="bg-white bg-opacity-80 p-6 rounded-lg shadow-md transform transition duration-500 hover:scale-105 hover:shadow-xl">
+            <div
+              className="bg-white/50 bg-opacity-80 p-6 rounded-lg shadow-md transform transition duration-500 hover:scale-105 hover:shadow-xl"
+              style={{ width: "500px" }} // Set the card's width to approximately 500px
+            >
               <img
                 src={stockeducationImg}
                 alt="Stock Market Education"
@@ -189,12 +192,12 @@ export function Homepage() {
               <h3 className="text-xl font-semibold mb-3 text-blue-800">
                 Stock Market Education Services
               </h3>
-              <p className="text-gray-700 leading-relaxed mb-4">
+              <p className="text-white leading-relaxed mb-4">
                 Gain in-depth knowledge of trading strategies, hands-on
                 experience, and expert insights designed to help traders excel
                 in the stock market. Our course includes:
               </p>
-              <ul className="text-left text-gray-600 list-disc list-inside space-y-2 mb-4">
+              <ul className="text-left text-white list-disc list-inside space-y-2 mb-4">
                 <li>
                   <span className="font-semibold text-blue-600">
                     VCP Setup:
