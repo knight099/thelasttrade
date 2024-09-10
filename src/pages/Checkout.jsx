@@ -8,7 +8,7 @@ import { Button } from "../components/Button";
 import { useAuth } from "../context/AuthContext"; // Custom hook for authentication
 import axios from "axios"; // For making API requests
 
-export const Checkout = () => {
+export function Checkout() {
   const navigate = useNavigate();
   const location = useLocation();
   const { isAuthenticated, user } = useAuth();

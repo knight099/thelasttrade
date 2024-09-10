@@ -6,6 +6,7 @@ import { Heading } from "../components/Heading";
 import { Appbar } from "../components/Appbar";
 import { Footer } from "../components/Footer";
 import { Slider } from "../components/Slider";
+import { useAuth } from "../context/AuthContext";
 
 // List of courses with details
 const courses = [
@@ -15,7 +16,7 @@ const courses = [
       "Learn the Volatility Contraction Pattern (VCP) for high probability trades.",
     details:
       "Master the VCP Setup to identify breakout points with low risk and high reward trades.",
-    link: "/payment/vcp-setup",
+    link: "/checkout",
   },
   {
     title: "ROCKET BASE SETUP",
@@ -23,7 +24,7 @@ const courses = [
       "A specialized trading setup focusing on rapid gains in a short timeframe.",
     details:
       "Rocket Base Setup teaches you how to capitalize on rapid momentum moves in the stock market.",
-    link: "/payment/rocket-base-setup",
+    link: "/checkout",
   },
   {
     title: "FUNDAMENTAL ANALYSIS",
@@ -31,7 +32,7 @@ const courses = [
       "Deep dive into analyzing companies based on their financials and market potential.",
     details:
       "This course covers essential fundamental analysis techniques for picking the right stocks.",
-    link: "/payment/fundamental-analysis",
+    link: "/checkout",
   },
   {
     title: "SECTOR ROTATION LIKE A PRO",
@@ -39,7 +40,7 @@ const courses = [
       "Understand the dynamics of sector rotation to align your trades with market trends.",
     details:
       "Learn how to shift your investments between sectors to maximize gains during different market cycles.",
-    link: "/payment/sector-rotation",
+    link: "/checkout",
   },
   {
     title: "MULTI BAGGER AND SCREENERS",
@@ -47,7 +48,7 @@ const courses = [
       "Identify multi-bagger stocks using advanced screeners and analysis techniques.",
     details:
       "Find potential multi-bagger stocks before they break out with our screening tools.",
-    link: "/payment/multi-bagger",
+    link: "/checkout",
   },
   {
     title: "1 Month Special Group",
@@ -55,7 +56,7 @@ const courses = [
       "Exclusive access to a special group with links shared via email and WhatsApp.",
     details:
       "Get a month of dedicated trading tips and strategies directly from experts.",
-    link: "/payment/special-group",
+    link: "/checkout",
   },
   {
     title: "RECORDING MILEGI RELAXX",
@@ -63,7 +64,7 @@ const courses = [
       "Access all course recordings at your convenience for relaxed learning.",
     details:
       "Catch up on course materials anytime with recorded sessions available for replay.",
-    link: "/payment/recording",
+    link: "checkout",
   },
   {
     title: "PROFITABLE OPTIONS",
@@ -71,12 +72,14 @@ const courses = [
       "Become a profitable options trader with strategies that work in all market conditions.",
     details:
       "Step-by-step guidance on stocks and index such as nifty, bank-nifty, finnifty, midcap nifty trading tactics to consistently make profits.",
-    link: "/payment/swing-trader",
+    link: "/checkout",
   },
 ];
 
-export const Courses = () => {
+
+export function Courses() {
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth(); // Use the custom hook to check authentication
   const [selectedCourse, setSelectedCourse] = useState(null);
 
   // Handle opening the modal with course details
@@ -90,8 +93,19 @@ export const Courses = () => {
   };
 
   // Handle navigating to the payment page
-  const handleBuyNow = (link) => {
-    navigate(link);
+  const handleBuyNow = (course) => {
+    if (isAuthenticated) {
+      navigate(course.link, {
+        state: { course }, // Pass the course details as payload
+      });
+    } else {
+      navigate("/signin", {
+        state: {
+          redirectTo: course.link, // Redirect to checkout page after sign-in
+          course, // Pass the course details as payload
+        },
+      });
+    }
   };
 
   return (
@@ -133,7 +147,7 @@ export const Courses = () => {
               />
               <Button
                 label="Buy Now"
-                onClick={() => handleBuyNow(selectedCourse.link)}
+                onClick={() => handleBuyNow(selectedCourse)}
                 className="bg-green-500 text-white px-4 py-2 rounded"
               />
             </div>
