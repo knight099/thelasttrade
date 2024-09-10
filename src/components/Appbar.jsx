@@ -195,7 +195,7 @@ export const Appbar = () => {
               </a>
             </li>
             {/* Services */}
-            <li>
+            {/* <li>
               <a
                 href="/services"
                 className="block py-2 px-3 text-gray-700 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition"
@@ -203,7 +203,7 @@ export const Appbar = () => {
               >
                 Services
               </a>
-            </li>
+            </li> */}
             {/* Pricing */}
             <li>
               <a
