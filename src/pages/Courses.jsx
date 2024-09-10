@@ -7,6 +7,7 @@ import { Appbar } from "../components/Appbar";
 import { Footer } from "../components/Footer";
 import { Slider } from "../components/Slider";
 import { useAuth } from "../context/AuthContext";
+import backgroundImage from "../assets/background.jpg"; // Import your background image
 
 // List of courses with details
 const courses = [
@@ -76,7 +77,6 @@ const courses = [
   },
 ];
 
-
 export function Courses() {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth(); // Use the custom hook to check authentication
@@ -111,49 +111,63 @@ export function Courses() {
   return (
     <>
       <Appbar />
-      <div className="container mx-auto py-10 px-4">
-        <Heading level={2} text="Our Courses" className="text-center mb-8" />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-          {courses.map((course, index) => (
-            <div
-              key={index}
-              className="border rounded-lg shadow-md p-6 bg-white hover:shadow-lg transition-shadow"
-            >
-              <h3 className="text-xl font-semibold mb-4">{course.title}</h3>
-              <p className="text-gray-600 mb-4">{course.description}</p>
-              <Button
-                label="Learn More"
-                onClick={() => handleLearnMore(course)}
-                className="bg-blue-600 text-white px-4 py-2 rounded"
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-      <Slider />
-      <Footer />
-
-      {/* Modal for course details */}
-      {selectedCourse && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white rounded-lg p-8 max-w-lg mx-auto">
-            <h2 className="text-2xl font-bold mb-4">{selectedCourse.title}</h2>
-            <p className="text-gray-700 mb-6">{selectedCourse.details}</p>
-            <div className="flex justify-between">
-              <Button
-                label="Close"
-                onClick={handleCloseModal}
-                className="bg-gray-400 text-white px-4 py-2 rounded"
-              />
-              <Button
-                label="Buy Now"
-                onClick={() => handleBuyNow(selectedCourse)}
-                className="bg-green-500 text-white px-4 py-2 rounded"
-              />
-            </div>
+      <div
+        className="relative min-h-screen bg-cover bg-center"
+        style={{ backgroundImage: `url(${backgroundImage})` }}
+      >
+        <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+        <div className="relative container mx-auto py-10 px-4 z-10">
+          <Heading
+            level={2}
+            text="Our Courses"
+            className="text-center text-white mb-8"
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
+            {courses.map((course, index) => (
+              <div
+                key={index}
+                className="border rounded-lg shadow-lg p-6 bg-gray-800 bg-opacity-80 hover:shadow-2xl transition-shadow"
+              >
+                <h3 className="text-xl font-semibold text-white mb-4">
+                  {course.title}
+                </h3>
+                <p className="text-gray-300 mb-4">{course.description}</p>
+                <Button
+                  label="Learn More"
+                  onClick={() => handleLearnMore(course)}
+                  className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                />
+              </div>
+            ))}
           </div>
         </div>
-      )}
+        <Slider />
+        <Footer />
+
+        {/* Modal for course details */}
+        {selectedCourse && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
+            <div className="bg-gray-900 text-white rounded-lg p-8 max-w-lg mx-auto">
+              <h2 className="text-2xl font-bold mb-4">
+                {selectedCourse.title}
+              </h2>
+              <p className="text-gray-300 mb-6">{selectedCourse.details}</p>
+              <div className="flex justify-between">
+                <Button
+                  label="Close"
+                  onClick={handleCloseModal}
+                  className="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700"
+                />
+                <Button
+                  label="Buy Now"
+                  onClick={() => handleBuyNow(selectedCourse)}
+                  className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+                />
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </>
   );
-};
+}
