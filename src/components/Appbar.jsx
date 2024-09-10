@@ -40,7 +40,6 @@ export const Appbar = () => {
       console.error("Error during signout:", error);
     }
   };
-  
 
   return (
     <nav className="sticky top-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-sm">
@@ -50,25 +49,12 @@ export const Appbar = () => {
           href="/"
           className="flex items-center text-gray-900 dark:text-white space-x-3 rtl:space-x-reverse"
         >
-          <img
-            src={logobull}
-            className="h-8"
-            alt="Logo"
-            // style={{ position: "absolute" }}
-          />
-          {/* <span className="self-center text-2xl font-semibold whitespace-nowrap">
-            THE LAST TRADE
-          </span> */}
-          <img 
-            src={lasttrade}
-            className="h-8"
-            alt="fontlogo"
-          />
+          <img src={logobull} className="h-8" alt="Logo" />
+          <img src={lasttrade} className="h-8" alt="fontlogo" />
         </a>
 
         {/* Mobile Menu Button */}
         <button
-          data-collapse-toggle="navbar_dropdown"
           type="button"
           className="inline-flex items-center p-2 w-10 h-10 justify-center text-gray-500 rounded-lg md:hidden hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-600"
           aria-controls="navbar_dropdown"
@@ -97,15 +83,15 @@ export const Appbar = () => {
         <div
           className={`${
             isMenuOpen ? "block" : "hidden"
-          } hidden w-full md:flex md:items-center md:justify-between md:w-auto`}
+          } fixed top-16 left-0 w-full md:static md:flex md:w-auto md:space-x-8 md:mt-0 md:bg-black md:dark:bg-gray-900 md:border-0`}
           id="navbar_dropdown"
         >
-          <ul className="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0">
+          <ul className="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:dark:bg-black">
             {/* Home */}
             <li>
               <a
                 href="#"
-                className="block py-2 px-3 text-gray-700 dark:text-white rounded hover:text-blue-600 dark:hover:text-blue-400 transition"
+                className="block py-2 px-3 text-gray-700 dark:text-white rounded hover:text-black-600 dark:hover:text-blue-400 transition"
                 onClick={() => navigate("/")}
               >
                 Home
@@ -194,16 +180,6 @@ export const Appbar = () => {
                 Contact Us
               </a>
             </li>
-            {/* Services */}
-            {/* <li>
-              <a
-                href="/services"
-                className="block py-2 px-3 text-gray-700 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition"
-                onClick={() => navigate("/services")}
-              >
-                Services
-              </a>
-            </li> */}
             {/* Pricing */}
             <li>
               <a
