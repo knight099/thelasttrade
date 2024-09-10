@@ -88,7 +88,7 @@ export function Homepage() {
     if (!isAuthenticated) {
       navigate("/signin", {
         state: {
-          redirectTo: "/payment",
+          redirectTo: "/checkout",
           course: selectedService,
         },
       });

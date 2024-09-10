@@ -7,6 +7,7 @@ import { Dashboard } from "./pages/Dashboard";
 import { Courses } from "./pages/Courses";
 import { Homepage } from "./pages/Homepage";
 import { Pricing } from "./pages/Pricing";
+import { Checkout } from "./pages/Checkout";
 // import { AdminDashboard } from "./components/AdminDashboard";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/courses" element={<Courses />} />
+          <Route path="/checkout" element={<Checkout />} />
         </Routes>
         
       {/* </BrowserRouter> */}
