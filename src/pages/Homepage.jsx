@@ -1,8 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Appbar } from "../components/Appbar";
 import { Footer } from "../components/Footer";
@@ -10,6 +8,8 @@ import { Slider } from "../components/Slider";
 import { Button } from "../components/Button";
 import { useAuth } from "../context/AuthContext"; // Correctly use the custom hook
 import axios from "axios"; // For making API requests
+import backgroundImg from "../assets/background.jpg"; // Importing background image
+import stockeducationImg from "../assets/stock-education.png";
 
 const ServiceModal = ({ isOpen, onClose, serviceDetails, onProceedToBuy }) => {
   if (!isOpen) return null;
@@ -39,10 +39,27 @@ const ServiceModal = ({ isOpen, onClose, serviceDetails, onProceedToBuy }) => {
   );
 };
 
+const handleSendMessage = () => {
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const phone = document.getElementById("phone").value;
+  const message = document.getElementById("message").value;
+
+  const whatsappMessage = `Hello, I'm ${name}.%0A%0AEmail: ${email}%0APhone: ${phone}%0A%0AMessage: ${message}`;
+  const whatsappNumber = "+917258840855";
+
+  window.open(
+    `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+      whatsappMessage
+    )}`,
+    "_blank"
+  );
+};
+
 export function Homepage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState({});
-  const { isAuthenticated, user } = useAuth(); // Use the custom hook
+  const { isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
 
   const serviceDetails = {
@@ -78,29 +95,26 @@ export function Homepage() {
       return;
     }
 
-    // Create Razorpay order on the backend
     try {
       const { data: order } = await axios.post(
         "http://localhost:5000/create-order",
         {
-          amount: 499, // Replace with the actual amount
+          amount: 499,
           currency: "INR",
           receipt: `receipt#${Math.random().toString(36).substring(7)}`,
         }
       );
 
-      // Open Razorpay payment modal
       const options = {
-        key: "YOUR_RAZORPAY_KEY_ID", // Replace with your Razorpay key id
+        key: "YOUR_RAZORPAY_KEY_ID",
         amount: order.amount,
         currency: order.currency,
         name: "The Last Trade",
         description: selectedService.title,
-        image: "/logo.png", // Replace with your logo URL
+        image: "/logo.png",
         order_id: order.id,
         handler: async (response) => {
           alert("Payment Successful");
-          // Handle post-payment success (e.g., save details to the database)
           navigate("/thank-you");
         },
         prefill: {
@@ -127,42 +141,97 @@ export function Homepage() {
       <Slider />
 
       {/* 9 Golden Rules Section */}
-      <section className="bg-gray-100 py-8">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl font-bold mb-4">
-            9 Golden Rules for Trading in Stock Market
+      <section
+        className="relative py-12 text-center text-white"
+        style={{
+          backgroundImage: `url(${backgroundImg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="absolute inset-0 bg-black bg-opacity-40 blur-sm"></div>
+        <div className="relative container mx-auto px-6">
+          <h2 className="text-3xl font-extrabold mb-6">
+            9 Golden Rules for Trading in the Stock Market
           </h2>
-          <ul className="list-disc list-inside space-y-2">
-            <li>Choose the right stocks</li>
-            <li>Take calculated risks</li>
-            <li>Do thorough research</li>
-            <li>Take expert's help</li>
-            <li>Never be emotional</li>
-            <li>Redressal of grievance</li>
-            <li>Use Stop Loss</li>
-            <li>Don't be greedy</li>
-            <li>Never take decision based on rumors</li>
+          <ul className="space-y-4">
+            {[
+              { text: "Choose the right stocks", icon: "📈" },
+              { text: "Take calculated risks", icon: "🧮" },
+              { text: "Do thorough research", icon: "🔍" },
+              { text: "Take expert's help", icon: "🧑‍🏫" },
+              { text: "Never be emotional", icon: "😌" },
+              { text: "Redressal of grievance", icon: "📜" },
+              { text: "Use Stop Loss", icon: "⛔" },
+              { text: "Don't be greedy", icon: "💡" },
+              { text: "Never take decisions based on rumors", icon: "🚫" },
+            ].map((rule, index) => (
+              <li
+                key={index}
+                className="flex items-center justify-center gap-3 p-4 bg-white bg-opacity-10 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
+              >
+                <span className="text-2xl">{rule.icon}</span>
+                <span className="font-semibold">{rule.text}</span>
+              </li>
+            ))}
           </ul>
         </div>
       </section>
 
       {/* Services Section */}
-      <section className="bg-gray-100 py-8">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl font-bold mb-6">What Services We Offer</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold mb-2">
+      <section
+        className="bg-gray-900 py-12 relative"
+        style={{
+          backgroundImage: `url(${backgroundImg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        <div className="relative bg-white/70 backdrop-blur-md p-8 rounded-lg container mx-auto text-center">
+          <h2 className="text-3xl font-extrabold text-gray-800 mb-8">
+            What Services We Offer
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+            {/* Service Card */}
+            <div className="bg-white bg-opacity-80 p-6 rounded-lg shadow-md transform transition duration-500 hover:scale-105 hover:shadow-xl">
+              <img
+                src={stockeducationImg}
+                alt="Stock Market Education"
+                className="w-full h-40 object-cover rounded-t-lg mb-4 opacity-80"
+              />
+              <h3 className="text-xl font-semibold mb-3 text-blue-800">
                 Stock Market Education Services
               </h3>
-              <p>
-                Our education services empower traders with practical strategies
-                and hands-on experience to excel in stock trading.
+              <p className="text-gray-700 leading-relaxed mb-4">
+                Gain in-depth knowledge of trading strategies, hands-on
+                experience, and expert insights designed to help traders excel
+                in the stock market. Our course includes:
               </p>
+              <ul className="text-left text-gray-600 list-disc list-inside space-y-2 mb-4">
+                <li>
+                  <span className="font-semibold text-blue-600">
+                    VCP Setup:
+                  </span>{" "}
+                  Identify Volatility Contraction Patterns.
+                </li>
+                <li>
+                  <span className="font-semibold text-blue-600">
+                    Rocket Base Setup:
+                  </span>{" "}
+                  Master setups for rapid gains.
+                </li>
+                <li>
+                  <span className="font-semibold text-blue-600">
+                    Sector Rotation:
+                  </span>{" "}
+                  Spot trends and adjust your portfolio.
+                </li>
+              </ul>
               <Button
                 label="Learn More"
                 onClick={handleLearnMore}
-                className="mt-4 bg-blue-600 text-white px-4 py-2 rounded"
+                className="bg-blue-600 text-white px-4 py-2 rounded"
               />
             </div>
           </div>
@@ -170,16 +239,44 @@ export function Homepage() {
       </section>
 
       {/* Contact Us Section */}
-      <section className="bg-gray-100 py-8">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl font-bold mb-6">We're Ready, Let's Talk</h2>
-          <Button label="Contact Us Now" />
+      <section className="py-12 bg-gray-800 text-white">
+        <div className="container mx-auto text-center">
+          <h2 className="text-3xl font-extrabold mb-8">Contact Us</h2>
+          <form className="max-w-xl mx-auto space-y-4">
+            <input
+              type="text"
+              id="name"
+              placeholder="Your Name"
+              className="w-full p-3 bg-gray-900 rounded"
+            />
+            <input
+              type="email"
+              id="email"
+              placeholder="Your Email"
+              className="w-full p-3 bg-gray-900 rounded"
+            />
+            <input
+              type="tel"
+              id="phone"
+              placeholder="Your Phone"
+              className="w-full p-3 bg-gray-900 rounded"
+            />
+            <textarea
+              id="message"
+              placeholder="Your Message"
+              className="w-full p-3 bg-gray-900 rounded"
+              rows="4"
+            ></textarea>
+            <Button
+              label="Send Message"
+              onClick={handleSendMessage}
+              className="bg-blue-600 text-white px-4 py-2 rounded"
+            />
+          </form>
         </div>
       </section>
 
       <Footer />
-
-      {/* Service Details Modal */}
       <ServiceModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

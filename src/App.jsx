@@ -6,6 +6,7 @@ import { Signin } from "./pages/Signin";
 import { Dashboard } from "./pages/Dashboard";
 import { Courses } from "./pages/Courses";
 import { Homepage } from "./pages/Homepage";
+import { Pricing } from "./pages/Pricing";
 // import { AdminDashboard } from "./components/AdminDashboard";
 
 function App() {
@@ -18,7 +19,7 @@ function App() {
           <Route path="/signin" element={<Signin />} />
           <Route path="/" element={<Homepage />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          {/* <Route path="/admindashboard" element={<AdminDashboard />} /> */}
+          <Route path="/pricing" element={<Pricing />} />
           <Route path="/courses" element={<Courses />} />
         </Routes>
         

@@ -7,6 +7,7 @@ import { SubHeading } from "../components/SubHeading";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Appbar } from "../components/Appbar";
+import { Footer } from "../components/Footer";
 
 export const Signup = () => {
   const [name, setName] = useState("");

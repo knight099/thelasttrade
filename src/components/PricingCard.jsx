@@ -1,0 +1,26 @@
+/* eslint-disable react/prop-types */
+// frontend/src/components/PricingCard.jsx
+/* eslint-disable no-unused-vars */
+import { useNavigate } from "react-router-dom";
+import { Button } from "./Button";
+
+export const PricingCard = ({ title, price, features, buttonLabel, link }) => {
+    const navigate = useNavigate();
+  return (
+    <div className="bg-white rounded-lg shadow-md p-6 flex flex-col justify-between">
+      <h3 className="text-xl font-bold mb-4 text-center">{title}</h3>
+      <p className="text-2xl font-semibold text-center mb-4">{price}</p>
+      <ul className="list-disc list-inside mb-6 space-y-2">
+        {features.map((feature, index) => (
+          <li key={index} className="text-gray-600">
+            {feature}
+          </li>
+        ))}
+      </ul>
+      <Button
+        label={buttonLabel}
+        onClick={() => navigate({link})}
+      />
+    </div>
+  );
+};

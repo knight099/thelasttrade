@@ -3,16 +3,23 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Button } from "./Button";
 import { useState, useEffect } from "react";
+import logobull from "../assets/logo-bull.jpg";
+import lasttrade from "../assets/thelasttrade-font.jpg";
 
 export const Appbar = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     // Check if the user is logged in by checking the existence of the token
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
   }, []);
+
+  const handleToggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
 
   const handleLogout = async () => {
     try {
@@ -33,6 +40,7 @@ export const Appbar = () => {
       console.error("Error during signout:", error);
     }
   };
+  
 
   return (
     <nav className="sticky top-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-sm">
@@ -43,13 +51,19 @@ export const Appbar = () => {
           className="flex items-center text-gray-900 dark:text-white space-x-3 rtl:space-x-reverse"
         >
           <img
-            src="https://flowbite.com/docs/images/logo.svg"
+            src={logobull}
             className="h-8"
-            alt="Flowbite Logo"
+            alt="Logo"
+            // style={{ position: "absolute" }}
           />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap">
+          {/* <span className="self-center text-2xl font-semibold whitespace-nowrap">
             THE LAST TRADE
-          </span>
+          </span> */}
+          <img 
+            src={lasttrade}
+            className="h-8"
+            alt="fontlogo"
+          />
         </a>
 
         {/* Mobile Menu Button */}
@@ -58,7 +72,8 @@ export const Appbar = () => {
           type="button"
           className="inline-flex items-center p-2 w-10 h-10 justify-center text-gray-500 rounded-lg md:hidden hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-600"
           aria-controls="navbar_dropdown"
-          aria-expanded="false"
+          aria-expanded={isMenuOpen}
+          onClick={handleToggleMenu}
         >
           <span className="sr-only">Open main menu</span>
           <svg
@@ -80,7 +95,9 @@ export const Appbar = () => {
 
         {/* Desktop Menu */}
         <div
-          className="hidden w-full md:flex md:items-center md:justify-between md:w-auto"
+          className={`${
+            isMenuOpen ? "block" : "hidden"
+          } hidden w-full md:flex md:items-center md:justify-between md:w-auto`}
           id="navbar_dropdown"
         >
           <ul className="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0">
