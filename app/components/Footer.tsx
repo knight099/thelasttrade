@@ -7,7 +7,7 @@ export function Footer() {
     <footer className="bg-slate-800 text-white py-8">
       <div className="container mx-auto flex flex-col items-center space-y-6">
         {/* Site Name */}
-        <div className="text-lg font-bold">THE LAST TRADE</div>
+        <div className="text-lg font-mono">THE LAST TRADE</div>
 
         {/* Social Media Links */}
         <div className="flex space-x-6">
@@ -42,8 +42,16 @@ export function Footer() {
         </div>
 
         {/* Footer Links */}
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-4 text-center text-sm">
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-4 text-center text-sm items-center">
           {/* Column 1 */}
+          <div>
+            <a
+              href="/terms-and-conditions"
+              className="underline hover:text-gray-400"
+            >
+              Terms and Conditions
+            </a>
+          </div>
           <div>
             <a
               href="/standard-dos-donts"
@@ -57,42 +65,35 @@ export function Footer() {
               Refund Policy
             </a>
           </div>
-          <div>
+          {/* <div>
             <a
               href="/service-fee-refund-plan"
               className="underline hover:text-gray-400"
             >
               Service Fee Refund Plan
             </a>
-          </div>
+          </div> */}
           <div>
             <a href="/privacy-policy" className="underline hover:text-gray-400">
               Privacy Policy
             </a>
           </div>
-          <div>
-            <a
-              href="/terms-and-conditions"
-              className="underline hover:text-gray-400"
-            >
-              Terms and Conditions
-            </a>
-          </div>
-          <div>
+          
+          {/* <div>
             <a href="/user-consent" className="underline hover:text-gray-400">
               User Consent
             </a>
-          </div>
+          </div> */}
           {/* Column 2 */}
-          <div>
+          {/* <div>
             <a
               href="/registered-research-analyst"
               className="underline hover:text-gray-400"
             >
               Registered Research Analyst
             </a>
-          </div>
-          <div>
+          </div> */}
+          {/* <div>
             <a
               href="/legal-disclaimer"
               className="underline hover:text-gray-400"
@@ -120,14 +121,14 @@ export function Footer() {
             >
               Grievance Redressal Process
             </a>
-          </div>
-          <div>
-            <a href="/contact" className="underline hover:text-gray-400">
+          </div> */}
+          <div> 
+            <a href="/contact" className="underline hover:text-gray-400"> 
               Contact Us
             </a>
           </div>
           {/* Column 3 */}
-          <div>
+          {/* <div>
             <a
               href="/packages/equity-cash-intraday"
               className="underline hover:text-gray-400"
@@ -158,8 +159,8 @@ export function Footer() {
             >
               Index Option (Combo Package)
             </a>
-          </div>
-        </div>
+          </div> */}
+        </div> 
 
         {/* Copyright */}
         <div className="text-center text-xs mt-4">

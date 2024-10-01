@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation"; // Use Next.js's useRouter for navi
 import axios from "axios";
 import { Button } from "./Button"; // Assuming Button is a separate component
 import logobull from "../assets/logo-bull.jpg";
-import lasttrade from "../assets/thelasttrade-font.jpg";
+// import lasttrade from "../assets/thelasttrade-font.jpg";
 
 export const Appbar = () => {
   const router = useRouter();
@@ -52,7 +52,8 @@ export const Appbar = () => {
           className="flex items-center text-gray-900 dark:text-white space-x-3 rtl:space-x-reverse"
         >
           <img src={logobull.src} className="h-8" alt="Logo" />
-          <img src={lasttrade.src} className="h-8" alt="fontlogo" />
+          {/* <img src={lasttrade.src} className="h-8 " alt="fontlogo" /> */}
+          <div className="tracking-wide text-gray-300 md:text-lg dark:text-gray-100">THE LAST TRADE</div>
         </a>
 
         {/* Mobile Menu Button */}
@@ -108,70 +109,8 @@ export const Appbar = () => {
                 className="flex items-center py-2 px-3 text-gray-700 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition"
               >
                 Courses
-                <svg
-                  className="w-2.5 h-2.5 ms-2.5 transition-transform group-hover:rotate-180"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 10 6"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="m1 1 4 4 4-4"
-                  />
-                </svg>
               </button>
-              {/* Dropdown menu */}
-              <div
-                id="dropdownNavbar"
-                className="absolute left-0 mt-2 hidden group-hover:block bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg w-44"
-              >
-                <ul
-                  className="py-2 text-sm text-gray-700 dark:text-gray-400"
-                  aria-labelledby="dropdownNavbarLink"
-                >
-                  <li>
-                    <a
-                      href="/courses/equity-cash-intraday"
-                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                      onClick={() => router.push("/courses/equity-cash-intraday")}
-                    >
-                      Equity Cash Intraday
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/courses/index-option-premium"
-                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                      onClick={() => router.push("/courses/index-option-premium")}
-                    >
-                      Index Option (Premium)
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/courses/index-option-standard"
-                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                      onClick={() => router.push("/courses/index-option-standard")}
-                    >
-                      Index Option (Standard Package)
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/courses/index-option-combo"
-                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                      onClick={() => router.push("/courses/index-option-combo")}
-                    >
-                      Index Option (Combo Package)
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </li>
+            </li> 
             {/* Contact Us */}
             <li>
               <a

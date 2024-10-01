@@ -8,13 +8,12 @@ export async function POST(req: NextRequest) {
     const user = await client.user.create({
         data: {
             name: body.name,
-            
             email: body.email,
             password: body.password
         }
     });
 
-    console.log(user.id);
+    console.log(user.name);
 
     return NextResponse.json({ message: "Signed up"});
 }

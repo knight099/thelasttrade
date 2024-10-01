@@ -41,6 +41,7 @@ export function ContactUs() {
   };
 
   return (
+    <>
     <section className="py-12 bg-gray-800 text-white">
       <div
         className="container mx-auto text-center"
@@ -89,5 +90,6 @@ export function ContactUs() {
         </form>
       </div>
     </section>
+    </>
   );
 }

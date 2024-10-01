@@ -12,6 +12,7 @@ import { Footer } from "./components/Footer";
 // import ServiceModal from "./components/ServiceModal";
 // import {ServiceDetails } from "./components/ServiceModal";
 import { Button } from "./components/Button"; // Button component assumed
+import stockeducationimg from "./assets/stock-education.jpg"
 
 interface ServiceDetails {
   title: string;
@@ -193,7 +194,7 @@ const Home: React.FC = () => {
 
       {/* Services Section */}
       <section
-        className="bg-gray-900 py-12 relative"
+        className="bg-gray-900 py-12 relative md:flex md:w-auto"
         style={{
           backgroundImage: `url('/background.jpg')`,
           backgroundSize: "cover",
@@ -212,7 +213,7 @@ const Home: React.FC = () => {
               style={{ width: "500px" }}
             >
               <Image
-                src="/assets/stock-education.png"
+                src={stockeducationimg}
                 alt="Stock Market Education"
                 width={500}
                 height={160}
