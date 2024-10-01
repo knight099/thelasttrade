@@ -7,8 +7,7 @@ import { Button } from "../components/Button";
 import { Heading } from "../components/Heading";
 import { Appbar } from "../components/Appbar";
 import { Footer } from "../components/Footer";
-import { Slider } from "../components/Slider";
-// import { AuthProvider, useAuth } from "../components/AuthContext";
+// import { Slider } from "../components/Slider";
 import Image from "next/image";
 import backgroundImage from "../assets/background.jpg"; // Use Next.js public folder for images
 
@@ -91,7 +90,6 @@ const courses: Course[] = [
 export function Courses() {
     
   const router = useRouter();
-  // const { isAuthenticated } = useAuth(); // Use the custom hook to check authentication
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
 
   // Handle opening the modal with course details
@@ -103,24 +101,6 @@ export function Courses() {
   const handleCloseModal = () => {
     setSelectedCourse(null);
   };
-
-  // Handle navigating to the payment page
-  // const handleBuyNow = (course: Course) => {
-  //   if (isAuthenticated) {
-  //     router.push({
-  //       pathname: course.link,
-  //       query: { courseTitle: course.title }, // Passing course data as query parameter
-  //     });
-  //   } else {
-  //     router.push({
-  //       pathname: "/signin",
-  //       query: {
-  //         redirectTo: course.link, // Redirect to checkout page after sign-in
-  //         courseTitle: course.title, // Passing course data as query parameter
-  //       },
-  //     });
-  //   }
-  // };
 
   return (
     <>
