@@ -8,7 +8,7 @@ import { Heading } from "../components/Heading";
 import { Appbar } from "../components/Appbar";
 import { Footer } from "../components/Footer";
 import { Slider } from "../components/Slider";
-import { AuthProvider, useAuth } from "../components/AuthContext";
+// import { AuthProvider, useAuth } from "../components/AuthContext";
 import Image from "next/image";
 import backgroundImage from "../assets/background.jpg"; // Use Next.js public folder for images
 
@@ -91,7 +91,7 @@ const courses: Course[] = [
 export function Courses() {
     
   const router = useRouter();
-  const { isAuthenticated } = useAuth(); // Use the custom hook to check authentication
+  // const { isAuthenticated } = useAuth(); // Use the custom hook to check authentication
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
 
   // Handle opening the modal with course details
@@ -105,26 +105,25 @@ export function Courses() {
   };
 
   // Handle navigating to the payment page
-  const handleBuyNow = (course: Course) => {
-    if (isAuthenticated) {
-      router.push({
-        pathname: course.link,
-        query: { courseTitle: course.title }, // Passing course data as query parameter
-      });
-    } else {
-      router.push({
-        pathname: "/signin",
-        query: {
-          redirectTo: course.link, // Redirect to checkout page after sign-in
-          courseTitle: course.title, // Passing course data as query parameter
-        },
-      });
-    }
-  };
+  // const handleBuyNow = (course: Course) => {
+  //   if (isAuthenticated) {
+  //     router.push({
+  //       pathname: course.link,
+  //       query: { courseTitle: course.title }, // Passing course data as query parameter
+  //     });
+  //   } else {
+  //     router.push({
+  //       pathname: "/signin",
+  //       query: {
+  //         redirectTo: course.link, // Redirect to checkout page after sign-in
+  //         courseTitle: course.title, // Passing course data as query parameter
+  //       },
+  //     });
+  //   }
+  // };
 
   return (
     <>
-    <AuthProvider>
       <Appbar />
       <div className="relative min-h-screen bg-cover bg-center">
         <Image
@@ -158,8 +157,7 @@ export function Courses() {
             ))}
           </div>
         </div>
-        <Slider />
-        <Footer />
+        
 
         {/* Modal for course details */}
         {selectedCourse && (
@@ -173,14 +171,15 @@ export function Courses() {
                 <Button label="Close" onClick={handleCloseModal} />
                 <Button
                   label="Buy Now"
-                  onClick={() => handleBuyNow(selectedCourse)}
+                  onClick={() => router.push("/signin")}
                 />
               </div>
             </div>
           </div>
         )}
       </div>
-      </AuthProvider>
+      {/* <Slider /> */}
+      <Footer />
     </>
     
   );
