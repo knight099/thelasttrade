@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"
 import axios from "axios";
 import { useState, useEffect } from "react";
@@ -40,7 +41,7 @@ async function getUserData(): Promise<User | null> {
 
 declare global {
   interface Window {
-    Razorpay: any;
+    Razorpay: void;
   }
 }
 
@@ -206,7 +207,7 @@ const Home: React.FC = () => {
               style={{ width: "500px" }}
             >
               <Image
-                src="/stockeducation.jpg"
+                src="/assets/stock-education.png"
                 alt="Stock Market Education"
                 width={500}
                 height={160}

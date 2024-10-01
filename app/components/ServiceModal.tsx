@@ -1,4 +1,4 @@
-
+"use client"
 import React from "react";
 import { Button } from "./Button"; // Assuming the Button component is already created and typed
 

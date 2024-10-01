@@ -49,7 +49,7 @@ export function Footer() {
               href="/standard-dos-donts"
               className="underline hover:text-gray-400"
             >
-              Standard Do's & Don'ts
+              Standard Do&#39;s & Don&#39;ts
             </a>
           </div>
           <div>
