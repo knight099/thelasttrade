@@ -18,17 +18,11 @@ interface PricingData {
   link?: string; // Optional, as some items don't have a link
 }
 
-interface HeadingProps {
-  title: string,
-  subtitle: string
-}
+
 
 export const Pricing = () => {
 //   const router = useRouter();
-  const label: HeadingProps = {
-    title: "Our Pricing Plans",
-    subtitle: "Choose the best plan that suits your needs."
-  }
+
   // Example pricing data
   const pricingData: PricingData[] = [
     {
@@ -81,8 +75,9 @@ export const Pricing = () => {
       >
         <div className="container mx-auto px-4">
           <Heading
-            label={label}
+             label="Our Pricing Plans"
           />
+          <Heading label= "Choose the best plan that suits your needs."/>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
             {pricingData.map((course, index) => (
               <PricingCard

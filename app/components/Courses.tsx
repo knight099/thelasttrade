@@ -137,9 +137,8 @@ export function Courses() {
         <div className="absolute inset-0 bg-gray-900 bg-opacity-60"></div>
         <div className="relative container mx-auto py-10 px-4 z-10">
           <Heading
-            level={2}
-            text="Our Courses"
-            className="text-center text-white mb-8"
+            // level={2}
+            label="Our Courses"
           />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
             {courses.map((course, index) => (
