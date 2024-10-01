@@ -20,7 +20,7 @@ interface PricingData {
 
 
 
-export const Pricing = () => {
+export default function Pricing() {
 //   const router = useRouter();
 
   // Example pricing data
