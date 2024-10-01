@@ -101,7 +101,7 @@ const Home: React.FC = () => {
 
   const handleProceedToBuy = async () => {
   if (!userData) {
-    router.push({ pathname: "/signin", query: { redirectTo: "/checkout", course: JSON.stringify(selectedService),},});
+    router.push("/signin");
     return;
   }
 
