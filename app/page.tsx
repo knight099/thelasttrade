@@ -9,7 +9,7 @@ import { Appbar } from "./components/Appbar"; // Assuming you have these compone
 import { Slider } from "./components/Slider";
 import { ContactUs } from "./components/ContactUs";
 import { Footer } from "./components/Footer";
-import ServiceModal from "./components/ServiceModal";
+// import ServiceModal from "./components/ServiceModal";
 // import {ServiceDetails } from "./components/ServiceModal";
 import { Button } from "./components/Button"; // Button component assumed
 
@@ -62,7 +62,9 @@ type RazorpayResponse = {
 
 const Home: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [selectedService, setSelectedService] = useState<ServiceDetails>();
+  const [selectedService, setSelectedService] = useState<ServiceDetails>(
+
+  );
   const [userData, setUserData] = useState<User | null>(null);
   const router = useRouter();
 
@@ -93,6 +95,7 @@ const Home: React.FC = () => {
 
   const handleLearnMore = () => {
     setSelectedService(serviceDetails);
+    router.push("/signin")
     setIsModalOpen(true);
   };
 
@@ -257,12 +260,12 @@ const Home: React.FC = () => {
 
       <Footer />
 
-      <ServiceModal
+      {/* <ServiceModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         serviceDetails={selectedService}
         onProceedToBuy={handleProceedToBuy}
-      />
+      /> */}
     </>
   );
 };
