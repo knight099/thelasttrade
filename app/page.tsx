@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"
 import axios from "axios";
@@ -9,6 +10,7 @@ import { Slider } from "./components/Slider";
 import { ContactUs } from "./components/ContactUs";
 import { Footer } from "./components/Footer";
 import ServiceModal from "./components/ServiceModal";
+// import {ServiceDetails } from "./components/ServiceModal";
 import { Button } from "./components/Button"; // Button component assumed
 
 interface ServiceDetails {
@@ -41,7 +43,7 @@ async function getUserData(): Promise<User | null> {
 
 declare global {
   interface Window {
-    Razorpay: void;
+    Razorpay: any;
   }
 }
 
@@ -60,7 +62,7 @@ type RazorpayResponse = {
 
 const Home: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [selectedService, setSelectedService] = useState<ServiceDetails | null>(null);
+  const [selectedService, setSelectedService] = useState<ServiceDetails>();
   const [userData, setUserData] = useState<User | null>(null);
   const router = useRouter();
 
