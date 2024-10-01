@@ -1,6 +1,15 @@
 /* eslint-disable react/prop-types */
 "use client"
-export function InputBox({ type, label, placeholder, onChange }) {
+
+import { ChangeEventHandler } from "react";
+
+interface InputBoxProps {
+  type: string,
+  label: string,
+  placeholder: string,
+  onChange: ChangeEventHandler<HTMLInputElement>
+}
+export const InputBox: React.FC<InputBoxProps>= ({ type, label, placeholder, onChange }) => {
   return (
     <div>
       <div className="text-sm font-medium text-left py-2">{label}</div>

@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react/prop-types */
 "use client";
-
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation"; // Use Next.js's useRouter for navigation
 import axios from "axios";

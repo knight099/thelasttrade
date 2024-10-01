@@ -1,12 +1,19 @@
-/* eslint-disable react/prop-types */
-// frontend/src/components/PricingCard.jsx
-/* eslint-disable no-unused-vars */
 "use client"
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import { Button } from "./Button";
 
-export const PricingCard = ({ title, price, features, buttonLabel, link }) => {
-    const navigate = useNavigate();
+// Define the type for the props
+interface PricingCardProps {
+  title: string;
+  price: string;
+  features: string[];
+  buttonLabel: string;
+  link: string;
+}
+
+export const PricingCard: React.FC<PricingCardProps> = ({ title, price, features, buttonLabel, link }) => {
+  const navigate = useRouter();
+
   return (
     <div className="bg-black rounded-lg shadow-md p-6 flex flex-col justify-between text-white">
       <h3 className="text-xl font-bold mb-4 text-center">{title}</h3>
@@ -20,7 +27,7 @@ export const PricingCard = ({ title, price, features, buttonLabel, link }) => {
       </ul>
       <Button
         label={buttonLabel}
-        onClick={() => navigate({link})}
+        onClick={() => navigate.push(link)}
       />
     </div>
   );
