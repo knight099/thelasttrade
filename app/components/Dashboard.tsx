@@ -8,8 +8,15 @@ import { Appbar } from "../components/Appbar";
 import { Footer } from "../components/Footer";
 import axios from "axios"; // For API requests
 
+interface Course {
+  id: number;
+  title: string;
+  description: string;
+  link: string;
+}
+
 // Mock data for available courses
-const availableCourses = [
+const availableCourses: Course[] = [
   {
     id: 1,
     title: "VCP Setup",
@@ -27,7 +34,7 @@ const availableCourses = [
 
 const Dashboard = () => {
   const { user, isAuthenticated } = useAuth();
-  const [enrolledCourses, setEnrolledCourses] = useState([]);
+  const [enrolledCourses, setEnrolledCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
