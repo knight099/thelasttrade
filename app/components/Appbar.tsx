@@ -2,9 +2,9 @@
 /* eslint-disable react/prop-types */
 "use client";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation"; // Use Next.js's useRouter for navigation
+import { useRouter } from "next/navigation"; 
 import axios from "axios";
-import { Button } from "./Button"; // Assuming Button is a separate component
+import { Button } from "./Button"; 
 import logobull from "../assets/logo-bull.jpg";
 // import lasttrade from "../assets/thelasttrade-font.jpg";
 
@@ -140,7 +140,7 @@ export const Appbar = () => {
               <li>
                 <Button
                   onClick={() => router.push("/signin")}
-                  label={"Login/Signup"}
+                  label={"Signup"}
                 />
               </li>
             )}
