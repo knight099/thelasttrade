@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+"use client"
 import { Appbar } from "../components/Appbar";
 import { BottomWarning } from "../components/BottomWarning";
 import { Footer } from "../components/Footer";
