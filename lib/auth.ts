@@ -12,24 +12,50 @@ export interface CustomJWTPayload {
   exp?: number;
 }
 
-// Create JWT token (simplified version)
+// Create JWT token with database storage
 export async function createToken(
   payload: Omit<CustomJWTPayload, 'iat' | 'exp'>, 
   deviceInfo?: string, 
   ipAddress?: string
 ): Promise<string> {
-  return new SignJWT(payload)
+  const token = await new SignJWT(payload)
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
     .setExpirationTime('7d') // Token expires in 7 days
     .sign(encodedKey);
+
+  // Store token in database using server-side utility
+  try {
+    const { storeTokenInDatabase } = await import('./auth-server');
+    await storeTokenInDatabase(token, payload.userId, deviceInfo, ipAddress);
+  } catch (error) {
+    console.error('Error storing token in database:', error);
+    // Don't fail token creation if database storage fails
+  }
+
+  return token;
 }
 
-// Verify JWT token (simplified version)
+// Verify JWT token with database validation
 export async function verifyToken(token: string): Promise<CustomJWTPayload | null> {
   try {
+    // First verify the JWT signature and expiration
     const { payload } = await jwtVerify(token, encodedKey);
-    return payload as unknown as CustomJWTPayload;
+    const jwtPayload = payload as unknown as CustomJWTPayload;
+
+    // Check if token exists in database and is not revoked
+    try {
+      const { verifyTokenInDatabase } = await import('./auth-server');
+      const isValid = await verifyTokenInDatabase(token);
+      if (!isValid) {
+        return null;
+      }
+    } catch (dbError) {
+      console.error('Database token validation error:', dbError);
+      // Fall back to JWT-only validation if database check fails
+    }
+
+    return jwtPayload;
   } catch (error) {
     console.error('Token verification failed:', error);
     return null;
@@ -61,25 +87,45 @@ export function clearAuthCookie() {
   cookieStore.delete('auth-token');
 }
 
-// Simplified token operations (for build compatibility)
+// Database token operations using server-side utilities
 export async function invalidateToken(token: string): Promise<boolean> {
-  // Token invalidation not implemented in simplified version
-  return true;
+  try {
+    const { invalidateToken: serverInvalidateToken } = await import('./auth-server');
+    return await serverInvalidateToken(token);
+  } catch (error) {
+    console.error('Error invalidating token:', error);
+    return false;
+  }
 }
 
 export async function invalidateAllUserTokens(userId: number): Promise<boolean> {
-  // Token invalidation not implemented in simplified version
-  return true;
+  try {
+    const { invalidateAllUserTokens: serverInvalidateAllUserTokens } = await import('./auth-server');
+    return await serverInvalidateAllUserTokens(userId);
+  } catch (error) {
+    console.error('Error invalidating user tokens:', error);
+    return false;
+  }
 }
 
 export async function getUserActiveTokens(userId: number): Promise<any[]> {
-  // Token listing not implemented in simplified version
-  return [];
+  try {
+    const { getUserActiveTokens: serverGetUserActiveTokens } = await import('./auth-server');
+    return await serverGetUserActiveTokens(userId);
+  } catch (error) {
+    console.error('Error fetching user tokens:', error);
+    return [];
+  }
 }
 
 export async function cleanupExpiredTokens(): Promise<number> {
-  // Token cleanup not implemented in simplified version
-  return 0;
+  try {
+    const { cleanupExpiredTokens: serverCleanupExpiredTokens } = await import('./auth-server');
+    return await serverCleanupExpiredTokens();
+  } catch (error) {
+    console.error('Error cleaning up expired tokens:', error);
+    return 0;
+  }
 }
 
 // Get current user from token
