@@ -16,9 +16,9 @@ export interface TokenRecord {
 }
 
 // Hash token for database storage
-export function hashToken(token: string): string {
-  return crypto.createHash('sha256').update(token).digest('hex');
-}
+// export function hashToken(token: string): string {
+//   return crypto.createHash('sha256').update(token).digest('hex');
+// }
 
 // Store token in database
 export async function storeTokenInDatabase(
@@ -28,8 +28,9 @@ export async function storeTokenInDatabase(
   ipAddress?: string
 ): Promise<void> {
   try {
-    const tokenHash = hashToken(token);
+   // const tokenHash = hashToken(token);
     const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days from now
+    console.log(' INSERTING TOKEN IN DATABASE:', token);
 
     // Ensure ip_address is valid for INET column; otherwise store NULL
     const ipForDb = ipAddress && isIP(ipAddress) ? ipAddress : null;
@@ -38,7 +39,9 @@ export async function storeTokenInDatabase(
       INSERT INTO tokens (user_id, token_hash, expires_at, device_info, ip_address)
       VALUES ($1, $2, $3, $4, $5)
       ON CONFLICT (token_hash) DO NOTHING
-    `, [userId, tokenHash, expiresAt, deviceInfo ?? null, ipForDb]);
+
+    `, [userId, token, expiresAt, deviceInfo, ipAddress]);
+
 
     console.log(`Token created for user ${userId}`);
   } catch (error) {
@@ -50,12 +53,13 @@ export async function storeTokenInDatabase(
 // Verify token exists in database and is not revoked
 export async function verifyTokenInDatabase(token: string): Promise<boolean> {
   try {
-    const tokenHash = hashToken(token);
+   // const tokenHash = hashToken(token);
+    console.log('Verifying token in database:', token);
     const result = await query(`
       SELECT id, user_id, expires_at, revoked, last_used_at
       FROM tokens 
       WHERE token_hash = $1 AND expires_at > NOW() AND revoked = FALSE
-    `, [tokenHash]);
+    `, [token]);
 
     if (result.rows.length === 0) {
       console.log('Token not found in database or expired/revoked');
@@ -67,7 +71,7 @@ export async function verifyTokenInDatabase(token: string): Promise<boolean> {
       UPDATE tokens 
       SET last_used_at = NOW() 
       WHERE token_hash = $1
-    `, [tokenHash]);
+    `, [token]);
 
     return true;
   } catch (dbError) {
@@ -80,12 +84,12 @@ export async function verifyTokenInDatabase(token: string): Promise<boolean> {
 // Invalidate a specific token
 export async function invalidateToken(token: string): Promise<boolean> {
   try {
-    const tokenHash = hashToken(token);
+   // const tokenHash = hashToken(token);
     const result = await query(`
       UPDATE tokens 
       SET revoked = TRUE 
       WHERE token_hash = $1
-    `, [tokenHash]);
+    `, [token]);
     
     return (result.rowCount || 0) > 0;
   } catch (error) {

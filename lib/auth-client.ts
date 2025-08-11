@@ -17,7 +17,7 @@ export async function createBasicToken(payload: Omit<CustomJWTPayload, 'iat' | '
   return new SignJWT(payload)
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
-    .setExpirationTime('7d') // Token expires in 7 days
+    .setExpirationTime('1h') // Token expires in 1 hour
     .sign(encodedKey);
 }
 
