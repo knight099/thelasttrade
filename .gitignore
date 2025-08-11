@@ -8,6 +8,8 @@
 # testing
 /coverage
 
+
+/.bolt/
 # next.js
 /.next/
 /out/

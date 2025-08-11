@@ -88,7 +88,17 @@ export async function POST(request: NextRequest) {
     const userAgent = request.headers.get('user-agent') || undefined;
     const forwardedFor = request.headers.get('x-forwarded-for');
     const realIp = request.headers.get('x-real-ip');
-    const ipAddress = forwardedFor?.split(',')[0] || realIp || 'unknown';
+    const rawIp = forwardedFor?.split(',')[0]?.trim() || realIp?.trim();
+    const ipAddress = rawIp && rawIp.length > 0 ? rawIp : undefined;
+
+    //If the user has an active session, revoke it
+    const activeSession = await query(
+      'SELECT id, revoked FROM tokens WHERE user_id = $1 AND revoked = FALSE AND expires_at > NOW() ORDER BY last_used_at DESC LIMIT 1',
+      [newUser.id]
+    );
+    if (activeSession.rows.length > 0) {
+      await query('UPDATE tokens SET revoked = TRUE WHERE id = $1', [activeSession.rows[0].id]);
+    }
 
     // Create JWT token with database tracking
     const token = await createToken({

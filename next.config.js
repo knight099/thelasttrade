@@ -14,6 +14,10 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  // Handle server-side packages properly
+  experimental: {
+    serverComponentsExternalPackages: ['pg', 'bcryptjs'],
+  },
 };
 
 module.exports = nextConfig;
