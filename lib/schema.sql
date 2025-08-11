@@ -9,17 +9,17 @@ CREATE TABLE IF NOT EXISTS users (
     password_hash VARCHAR(255) NOT NULL,
     role VARCHAR(50) DEFAULT 'user' CHECK (role IN ('user', 'admin')),
     avatar_url TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Categories table for organizing courses
 CREATE TABLE IF NOT EXISTS categories (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL UNIQUE,
     description TEXT,
     icon VARCHAR(100),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Courses table
@@ -32,10 +32,10 @@ CREATE TABLE IF NOT EXISTS courses (
     category_id INTEGER REFERENCES categories(id),
     instructor_id INTEGER REFERENCES users(id),
     duration_minutes INTEGER DEFAULT 0,
-    difficulty_level VARCHAR(50) DEFAULT 'beginner' CHECK (difficulty_level IN ('beginner', 'intermediate', 'advanced')),
+    difficulty_level VARCHAR(50) DEFAULT 'Beginner' CHECK (difficulty_level IN ('Beginner', 'Intermediate', 'Advanced')),
     is_published BOOLEAN DEFAULT false,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Videos table for course content
@@ -47,10 +47,11 @@ CREATE TABLE IF NOT EXISTS videos (
     video_url TEXT NOT NULL,
     thumbnail_url TEXT,
     duration_seconds INTEGER DEFAULT 0,
-    order_index INTEGER DEFAULT 0,
+    order_index INTEGER DEFAULT 1,
     is_free BOOLEAN DEFAULT false,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT unique_video_order UNIQUE(course_id, order_index)
 );
 
 -- User course enrollments
@@ -58,8 +59,8 @@ CREATE TABLE IF NOT EXISTS user_courses (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     course_id INTEGER REFERENCES courses(id) ON DELETE CASCADE,
-    enrolled_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    completed_at TIMESTAMP,
+    enrolled_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    completed_at TIMESTAMPTZ,
     progress_percentage INTEGER DEFAULT 0,
     UNIQUE(user_id, course_id)
 );
@@ -71,7 +72,7 @@ CREATE TABLE IF NOT EXISTS user_video_progress (
     video_id INTEGER REFERENCES videos(id) ON DELETE CASCADE,
     watched_seconds INTEGER DEFAULT 0,
     is_completed BOOLEAN DEFAULT false,
-    last_watched_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_watched_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
     UNIQUE(user_id, video_id)
 );
 
@@ -81,7 +82,7 @@ CREATE TABLE IF NOT EXISTS features (
     title VARCHAR(255) NOT NULL,
     description TEXT,
     icon VARCHAR(100),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Insert sample data
@@ -109,7 +110,7 @@ CREATE TABLE IF NOT EXISTS tokens (
     last_used_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     revoked BOOLEAN DEFAULT FALSE,
     device_info TEXT,
-    ip_address INET
+    ip_address TEXT
 );
 
 -- Create indexes for better performance

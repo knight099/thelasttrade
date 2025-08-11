@@ -67,9 +67,19 @@ export async function POST(request: NextRequest) {
           // Get device and IP info for token tracking
       const userAgent = request.headers.get('user-agent') || undefined;
       const forwardedFor = request.headers.get('x-forwarded-for');
+      
       const realIp = request.headers.get('x-real-ip');
       const rawIp = forwardedFor?.split(',')[0]?.trim() || realIp?.trim();
       const ipAddress = rawIp && rawIp.length > 0 ? rawIp : undefined;
+
+      //While logging in, if the user has an active session, revoke it
+      const activeSession = await query(
+        'SELECT id, revoked FROM tokens WHERE user_id = $1 AND revoked = FALSE AND expires_at > NOW() ORDER BY last_used_at DESC LIMIT 1',
+        [user.id]
+      );
+      if (activeSession.rows.length > 0) {
+        await query('UPDATE tokens SET revoked = TRUE WHERE id = $1', [activeSession.rows[0].id]);
+      }
 
       // Create JWT token with database tracking
       const token = await createToken({
@@ -95,7 +105,7 @@ export async function POST(request: NextRequest) {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
-      maxAge: 7 * 24 * 60 * 60, // 7 days
+     // maxAge: 7 * 24 * 60 * 60, // 7 days
       path: '/'
     });
 
