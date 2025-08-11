@@ -14,6 +14,12 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  // Ensure proper output for Vercel
+  output: 'standalone',
+  // Disable experimental features that might cause issues
+  experimental: {
+    serverComponentsExternalPackages: ['pg', 'bcryptjs'],
+  },
 };
 
 module.exports = nextConfig;

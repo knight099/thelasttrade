@@ -12,9 +12,7 @@
     "db:add-courses": "tsx scripts/add-sample-courses.ts",
     "db:add-enrollments": "tsx scripts/add-sample-enrollments.ts",
     "db:add-videos": "tsx scripts/add-sample-videos.ts",
-    "db:fix-users": "tsx scripts/fix-user-issues.ts",
-    "db:add-tokens": "tsx scripts/add-tokens-table.ts",
-    "db:create-tokens": "tsx scripts/create-tokens-only.ts"
+    "db:fix-users": "tsx scripts/fix-user-issues.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
