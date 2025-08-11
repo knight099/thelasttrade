@@ -68,7 +68,8 @@ export async function POST(request: NextRequest) {
       const userAgent = request.headers.get('user-agent') || undefined;
       const forwardedFor = request.headers.get('x-forwarded-for');
       const realIp = request.headers.get('x-real-ip');
-      const ipAddress = forwardedFor?.split(',')[0] || realIp || 'unknown';
+      const rawIp = forwardedFor?.split(',')[0]?.trim() || realIp?.trim();
+      const ipAddress = rawIp && rawIp.length > 0 ? rawIp : undefined;
 
       // Create JWT token with database tracking
       const token = await createToken({

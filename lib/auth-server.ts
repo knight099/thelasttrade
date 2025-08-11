@@ -1,5 +1,6 @@
 // Server-side auth utilities that use Node.js features
 import crypto from 'crypto';
+import { isIP } from 'net';
 import { query } from './db';
 
 export interface TokenRecord {
@@ -30,11 +31,14 @@ export async function storeTokenInDatabase(
     const tokenHash = hashToken(token);
     const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days from now
 
+    // Ensure ip_address is valid for INET column; otherwise store NULL
+    const ipForDb = ipAddress && isIP(ipAddress) ? ipAddress : null;
+
     await query(`
       INSERT INTO tokens (user_id, token_hash, expires_at, device_info, ip_address)
       VALUES ($1, $2, $3, $4, $5)
       ON CONFLICT (token_hash) DO NOTHING
-    `, [userId, tokenHash, expiresAt, deviceInfo, ipAddress]);
+    `, [userId, tokenHash, expiresAt, deviceInfo ?? null, ipForDb]);
 
     console.log(`Token created for user ${userId}`);
   } catch (error) {
